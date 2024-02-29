@@ -34,10 +34,10 @@ namespace SimpleAddressBookApp
     //-Screenshots of the program running
     public partial class MainWindow : Window
     {
-        bool addtoList = false;
-        string[] tempArr = new string[] { };
-        List<string[]> adBookInfo = new List<string[]>(); //stores all info of contacts
-        string[] infos = new string[4]; //temp arr for infos
+        private bool addtoList = false;
+        private string[] tempArr = new string[] { };
+        private List<string[]> adBookInfo = new List<string[]>(); //stores all info of contacts
+        private string[] infos = new string[4]; //temp arr for infos
         //0-name
         //1-address
         //2-phone number
@@ -59,6 +59,7 @@ namespace SimpleAddressBookApp
                     adBookInfo.Add(tempArr);
                 }
             }
+            tempArr = new string[] { };
         }
         #region Textchanged_stuff
         private void Txtbox_name(object sender, TextChangedEventArgs e)
@@ -81,7 +82,7 @@ namespace SimpleAddressBookApp
         #region KeyUp_events
         private void tbName_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Tab)
+            if (e.Key == Key.Enter)
             {
                 infos[0] = tbName.Text;
                 tbAddress.Focus();
@@ -89,7 +90,7 @@ namespace SimpleAddressBookApp
         }
         private void tbAddress_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Tab)
+            if (e.Key == Key.Enter)
             {
                 infos[1] = tbAddress.Text;
                 tbNumber.Focus();
@@ -97,7 +98,7 @@ namespace SimpleAddressBookApp
         }
         private void tbNumber_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Tab)
+            if (e.Key == Key.Enter)
             {
                 infos[2] = tbNumber.Text;
                 tbEmailAd.Focus();
@@ -105,7 +106,7 @@ namespace SimpleAddressBookApp
         }
         private void tbEmailAd_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Tab)
+            if (e.Key == Key.Enter)
             {
                 infos[3] = tbEmailAd.Text;
                 btnAdd.Visibility = Visibility.Visible;
@@ -118,7 +119,7 @@ namespace SimpleAddressBookApp
         {
             for (int x = 0; x < infos.Length; x++)
             {
-                if (infos[x] == "" /*|| lbView.Items.Contains(infos[0]) || lbView.Items.Contains(infos[2])*/)
+                if (infos[x] == "" || lbView.Items.Contains(infos[0]) || lbView.Items.Contains(infos[2]))
                 {
                     addtoList = false;
                     break;
@@ -130,7 +131,7 @@ namespace SimpleAddressBookApp
             if (addtoList)
             {
                 lbView.Items.Add(infos[0]);
-                //adBookInfo.Add(infos);
+                adBookInfo.Add(infos);
             }
             else
                 MessageBox.Show("Invalid Input. Either the contact already exists or not all fields are filled out.");
@@ -138,7 +139,10 @@ namespace SimpleAddressBookApp
         private void btnNew_Contact(object sender, RoutedEventArgs e)
         {
             btnAdd.Visibility = Visibility.Hidden;
-            //infos = new string[4];
+            tbName.Text = "";
+            tbAddress.Text = "";
+            tbNumber.Text = "";
+            tbEmailAd.Text = "";
         }
         private void btnUpdate_Contact(object sender, RoutedEventArgs e)
         {
@@ -147,10 +151,19 @@ namespace SimpleAddressBookApp
         #endregion
         private void lbView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbView.Items.Contains(lbView.SelectedItem))
+            int currIndex = 0;
+            
+            currIndex = lbView.SelectedIndex;
+            if (currIndex >= 0 && currIndex < adBookInfo.Count)
             {
-
+                tempArr = adBookInfo[currIndex];
+                tbName.Text = tempArr[0];
+                tbAddress.Text = tempArr[1];
+                tbNumber.Text = tempArr[2];
+                tbEmailAd.Text = tempArr[3];
             }
+            else
+                MessageBox.Show("Invalid selection");
         }
     }
 }
