@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 using System.Text;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -35,6 +36,7 @@ namespace SimpleAddressBookApp
     public partial class MainWindow : Window
     {
         private bool addtoList = false;
+        private int currIndex = 0;
         private string[] tempArr = new string[] { };
         private List<string[]> adBookInfo = new List<string[]>(); //stores all info of contacts
         private string[] infos = new string[4]; //temp arr for infos
@@ -47,6 +49,7 @@ namespace SimpleAddressBookApp
             InitializeComponent();
             readFromCSV("adBook.csv");
         }
+        #region CSV_stuff
         private void readFromCSV(string fileName)
         {
             using (StreamReader sr = new StreamReader(fileName))
@@ -61,6 +64,33 @@ namespace SimpleAddressBookApp
             }
             tempArr = new string[] { };
         }
+        private void writeToFile(string fileName)
+        {
+            using (StreamWriter sw = new StreamWriter(fileName, true))
+            {
+                for(int x = adBookInfo.Count - 1; x > adBookInfo.Count - 2; x--)
+                {
+                    sw.WriteLine($"{adBookInfo[x][0]}, {adBookInfo[x][1]}, {adBookInfo[x][2]}, {adBookInfo[x][3]}");
+                }
+            }
+        }
+        private void writeForUpdatedInfo(string fileName)
+        {
+            using (StreamWriter sw = new StreamWriter(fileName, false))
+            {
+                sw.Write("");
+            }
+
+            using (StreamWriter sw = new StreamWriter(fileName, true))
+            {
+                for (int x = 0; x < adBookInfo.Count; x++)
+                {
+                    sw.WriteLine($"{adBookInfo[x][0]}, {adBookInfo[x][1]}, {adBookInfo[x][2]}, {adBookInfo[x][3]}");
+                }
+            }
+        }
+        #endregion
+
         #region Textchanged_stuff
         private void Txtbox_name(object sender, TextChangedEventArgs e)
         {
@@ -132,6 +162,7 @@ namespace SimpleAddressBookApp
             {
                 lbView.Items.Add(infos[0]);
                 adBookInfo.Add(infos);
+                writeToFile("adBook.csv");
             }
             else
                 MessageBox.Show("Invalid Input. Either the contact already exists or not all fields are filled out.");
@@ -146,13 +177,28 @@ namespace SimpleAddressBookApp
         }
         private void btnUpdate_Contact(object sender, RoutedEventArgs e)
         {
-
+            currIndex = lbView.SelectedIndex;
+            if (currIndex >= 0 && currIndex < adBookInfo.Count)
+            {
+                for(int x = 0; x < adBookInfo.Count; x++)
+                {
+                    if (x == currIndex)
+                    {
+                        adBookInfo[x][0] = tbName.Text;
+                        adBookInfo[x][1] = tbAddress.Text;
+                        adBookInfo[x][2] = tbNumber.Text;
+                        adBookInfo[x][3] = tbEmailAd.Text;
+                        writeForUpdatedInfo("adBook.csv");
+                        break;
+                    }
+                }
+            }
+            else
+                MessageBox.Show("Invalid selection");
         }
         #endregion
         private void lbView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int currIndex = 0;
-            
             currIndex = lbView.SelectedIndex;
             if (currIndex >= 0 && currIndex < adBookInfo.Count)
             {
