@@ -19,7 +19,7 @@
         <TextBox x:Name="tbAddress" HorizontalAlignment="Left" Margin="155,204,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_address" KeyUp="tbAddress_KeyUp"/>
         <TextBox x:Name="tbNumber" HorizontalAlignment="Left" Margin="155,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_phonenum" KeyUp="tbNumber_KeyUp"/>
         <TextBox x:Name="tbEmailAd" HorizontalAlignment="Left" Margin="155,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_emailad" KeyUp="tbEmailAd_KeyUp"/>
-        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="155,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_search" FontSize="16"/>
+        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="155,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_search" FontSize="16" KeyUp="tbSearch_KeyUp"/>
         <Button x:Name="btnAdd" Content="Add Contact" HorizontalAlignment="Left" Height="34" Margin="155,349,0,0" VerticalAlignment="Top" Width="190" Click="btnAdd_Contact" Visibility="Hidden" />
         <Button x:Name="btnNew" Content="New Contact" HorizontalAlignment="Left" Height="33" Margin="535,303,0,0" VerticalAlignment="Top" Width="190" Click="btnNew_Contact"/>
         <Button x:Name="btnUpdate" Content="Update Contact" HorizontalAlignment="Left" Height="33" Margin="535,357,0,0" VerticalAlignment="Top" Width="190" Click="btnUpdate_Contact"/>

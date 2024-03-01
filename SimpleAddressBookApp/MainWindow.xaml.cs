@@ -74,7 +74,7 @@ namespace SimpleAddressBookApp
                 }
             }
         }
-        private void writeForUpdatedInfo(string fileName)
+        private void overwriteFile(string fileName)
         {
             using (StreamWriter sw = new StreamWriter(fileName, false))
             {
@@ -110,6 +110,19 @@ namespace SimpleAddressBookApp
         #endregion
 
         #region KeyUp_events
+        private void tbSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            for(int x = 0; x < adBookInfo.Count;x++)
+            {
+                if (adBookInfo[x][0].ToLower().Contains(tbSearch.Text.ToLower()))
+                {
+                    tbName.Text = adBookInfo[x][0];
+                    tbAddress.Text = adBookInfo[x][1];
+                    tbNumber.Text = adBookInfo[x][2];
+                    tbEmailAd.Text = adBookInfo[x][3];
+                }
+            }
+        }
         private void tbName_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -188,7 +201,7 @@ namespace SimpleAddressBookApp
                         adBookInfo[x][1] = tbAddress.Text;
                         adBookInfo[x][2] = tbNumber.Text;
                         adBookInfo[x][3] = tbEmailAd.Text;
-                        writeForUpdatedInfo("adBook.csv");
+                        overwriteFile("adBook.csv");
                         break;
                     }
                 }
