@@ -18,7 +18,7 @@ namespace SimpleAddressBookApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-       //REQS
+    //REQS
     //-Must be able to save contacts to a .csv file
     //-Name [1]
     //-Address [1]
@@ -28,11 +28,17 @@ namespace SimpleAddressBookApp
     //-Update contacts [1]
     //-Must be able to search through the list [1]
 
-    //DOCU
-    //-Explaining the controls(buttons, labels, listbox, etc)
-    //-Why you chose them and how they interact with the user
-    //-Include the code for it
-    //-Screenshots of the program running
+    //current features:
+    //-add contact
+    //-read from csv
+    //-write to csv
+    //-view selected contacts
+    //-new contact(clear fields)
+    //-update adbook info while in app
+    //-update adbook info in csv
+    //-search function
+    //-added clear for search
+    //-fixed UI
     public partial class MainWindow : Window
     {
         private bool addtoList = false;
@@ -52,12 +58,23 @@ namespace SimpleAddressBookApp
         #region CSV_stuff
         private void readFromCSV(string fileName)
         {
+            string tempWord = "";
             using (StreamReader sr = new StreamReader(fileName))
             {
                 string line = "";
                 while ((line = sr.ReadLine()) != null)
                 {
                     tempArr = line.Split(',');
+                    for (int x = 0; x < tempArr.Length; x++)
+                    {
+                        if (tempArr[x][0] == ' ') //if first letter is space
+                        {
+                            tempWord = tempArr[x];
+                            tempArr[x] = "";
+                            for (int i = 1; i < tempWord.Length; i++)
+                                tempArr[x] += tempWord[i];
+                        }
+                    }
                     lbView.Items.Add(tempArr[0]);
                     adBookInfo.Add(tempArr);
                 }
@@ -91,7 +108,7 @@ namespace SimpleAddressBookApp
         }
         #endregion
 
-        #region Textchanged_stuff
+        #region Textchanged_events
         private void Txtbox_name(object sender, TextChangedEventArgs e)
         {
         }
@@ -112,14 +129,12 @@ namespace SimpleAddressBookApp
         #region KeyUp_events
         private void tbSearch_KeyUp(object sender, KeyEventArgs e)
         {
+            btnUpdate.IsEnabled = false;
             for(int x = 0; x < adBookInfo.Count;x++)
             {
                 if (adBookInfo[x][0].ToLower().Contains(tbSearch.Text.ToLower()))
                 {
-                    tbName.Text = adBookInfo[x][0];
-                    tbAddress.Text = adBookInfo[x][1];
-                    tbNumber.Text = adBookInfo[x][2];
-                    tbEmailAd.Text = adBookInfo[x][3];
+                    assignValuetoArr(adBookInfo[x]);
                 }
             }
         }
@@ -149,15 +164,19 @@ namespace SimpleAddressBookApp
         }
         private void tbEmailAd_KeyUp(object sender, KeyEventArgs e)
         {
+            btnAdd.IsEnabled = true;
             if (e.Key == Key.Enter)
             {
                 infos[3] = tbEmailAd.Text;
-                btnAdd.Visibility = Visibility.Visible;
             }
         }
         #endregion
 
         #region Button_events
+        private void btnSearch_Contact(object sender, RoutedEventArgs e)
+        {
+            clearSearchBar();
+        }
         private void btnAdd_Contact(object sender, RoutedEventArgs e)
         {
             for (int x = 0; x < infos.Length; x++)
@@ -180,9 +199,10 @@ namespace SimpleAddressBookApp
             else
                 MessageBox.Show("Invalid Input. Either the contact already exists or not all fields are filled out.");
         }
-        private void btnNew_Contact(object sender, RoutedEventArgs e)
+        private void btnClear_Contact(object sender, RoutedEventArgs e)
         {
-            btnAdd.Visibility = Visibility.Hidden;
+            btnAdd.IsEnabled = false;
+            btnUpdate.IsEnabled = false;
             tbName.Text = "";
             tbAddress.Text = "";
             tbNumber.Text = "";
@@ -208,21 +228,36 @@ namespace SimpleAddressBookApp
             }
             else
                 MessageBox.Show("Invalid selection");
+            btnUpdate.IsEnabled = false;
         }
         #endregion
+
+        #region Other_stuff
         private void lbView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            clearSearchBar();
+            btnUpdate.IsEnabled = true;
             currIndex = lbView.SelectedIndex;
             if (currIndex >= 0 && currIndex < adBookInfo.Count)
             {
                 tempArr = adBookInfo[currIndex];
-                tbName.Text = tempArr[0];
-                tbAddress.Text = tempArr[1];
-                tbNumber.Text = tempArr[2];
-                tbEmailAd.Text = tempArr[3];
+                assignValuetoArr(tempArr);
             }
             else
                 MessageBox.Show("Invalid selection");
         }
+        private void clearSearchBar()
+        {
+            btnUpdate.IsEnabled = false;
+            tbSearch.Text = "";
+        }
+        private void assignValuetoArr(string[] assignArr)
+        {
+            tbName.Text = assignArr[0];
+            tbAddress.Text = assignArr[1];
+            tbNumber.Text = assignArr[2];
+            tbEmailAd.Text = assignArr[3];
+        }
+        #endregion
     }
 }

@@ -5,26 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleAddressBookApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Leila's Address Book" Height="450" Width="800">
     <Grid>
         <Grid.Background>
-            <ImageBrush/>
+            <ImageBrush ImageSource="/pretty wp.jpg"/>
         </Grid.Background>
-        <Label x:Name="LblSearch" Content="🔍 Search" HorizontalAlignment="Left" Margin="66,85,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="LblName" Content="Name:" HorizontalAlignment="Left" Margin="94,156,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="LblAddress" Content="Address:" HorizontalAlignment="Left" Margin="83,203,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="LblPhoneNo" Content="Phone Number:" HorizontalAlignment="Left" Margin="32,247,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="LblEmailAd" Content="Email Address:" HorizontalAlignment="Left" Margin="41,287,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="155,156,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_name" KeyUp="tbName_KeyUp"/>
-        <TextBox x:Name="tbAddress" HorizontalAlignment="Left" Margin="155,204,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_address" KeyUp="tbAddress_KeyUp"/>
-        <TextBox x:Name="tbNumber" HorizontalAlignment="Left" Margin="155,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_phonenum" KeyUp="tbNumber_KeyUp"/>
-        <TextBox x:Name="tbEmailAd" HorizontalAlignment="Left" Margin="155,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_emailad" KeyUp="tbEmailAd_KeyUp"/>
-        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="155,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_search" FontSize="16" KeyUp="tbSearch_KeyUp"/>
-        <Button x:Name="btnAdd" Content="Add Contact" HorizontalAlignment="Left" Height="34" Margin="155,349,0,0" VerticalAlignment="Top" Width="190" Click="btnAdd_Contact" Visibility="Hidden" />
-        <Button x:Name="btnNew" Content="New Contact" HorizontalAlignment="Left" Height="33" Margin="535,303,0,0" VerticalAlignment="Top" Width="190" Click="btnNew_Contact"/>
-        <Button x:Name="btnUpdate" Content="Update Contact" HorizontalAlignment="Left" Height="33" Margin="535,357,0,0" VerticalAlignment="Top" Width="190" Click="btnUpdate_Contact"/>
-        <ListBox x:Name="lbView" HorizontalAlignment="Left" Height="238" Margin="505,39,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="lbView_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Visible"/>
-        <Label Content="Simple Address Book" HorizontalAlignment="Left" Height="40" Margin="83,24,0,0" VerticalAlignment="Top" Width="303" FontSize="24" FontWeight="Bold"/>
+        <Label x:Name="Name_bg" Content="Simple Address Book" HorizontalAlignment="Left" Height="56" Margin="83,26,0,0" VerticalAlignment="Top" Width="317" FontSize="30.5" FontFamily="Impact" BorderThickness="1,1,1,1" Foreground="#FF3E357B"/>
+        <Label x:Name="Name" Content="Simple Address Book" HorizontalAlignment="Left" Height="56" Margin="83,24,0,0" VerticalAlignment="Top" Width="317" FontSize="30" FontFamily="Impact" BorderThickness="1,1,1,1">
+            <Label.Foreground>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF877FBD" Offset="0"/>
+                    <GradientStop Color="#FF5E9BA5" Offset="1"/>
+                    <GradientStop Color="#FF629CE8" Offset="0.04"/>
+                </RadialGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <Label x:Name="LblSearch" Content="🔍 Search" HorizontalAlignment="Left" Margin="68,85,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" Foreground="#FF394FA5" Width="102" Background="Transparent"/>
+        <Label x:Name="LblName" Content="Name:" HorizontalAlignment="Left" Margin="104,156,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" Foreground="#FF3B92E2"/>
+        <Label x:Name="LblAddress" Content="Address:" HorizontalAlignment="Left" Margin="83,206,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" Foreground="#FF3B92E2" FontStyle="Italic"/>
+        <Label x:Name="LblPhoneNo" Content="Phone Number:" HorizontalAlignment="Left" Margin="26,250,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" Foreground="#FF3B92E2" FontStyle="Italic"/>
+        <Label x:Name="LblEmailAd" Content="Email Address:" HorizontalAlignment="Left" Margin="29,294,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Black" Foreground="#FF3B92E2" FontStyle="Italic"/>
+
+        <TextBox x:Name="tbName" HorizontalAlignment="Left" Margin="172,156,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_name" KeyUp="tbName_KeyUp" BorderThickness="2,2,2,2" Background="#FFF0FDF7"/>
+        <TextBox x:Name="tbAddress" HorizontalAlignment="Left" Margin="172,204,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_address" KeyUp="tbAddress_KeyUp" BorderThickness="2,2,2,2" Background="#FFF0FDF7"/>
+        <TextBox x:Name="tbNumber" HorizontalAlignment="Left" Margin="172,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_phonenum" KeyUp="tbNumber_KeyUp" BorderThickness="2,2,2,2" Background="#FFF0FDF7"/>
+        <TextBox x:Name="tbEmailAd" HorizontalAlignment="Left" Margin="172,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="310" Height="30" TextChanged="Txtbox_emailad" KeyUp="tbEmailAd_KeyUp" BorderThickness="2,2,2,2" Background="#FFF0FDF7"/>
+        <TextBox x:Name="tbSearch" HorizontalAlignment="Left" Margin="172,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="209" Height="30" TextChanged="Txtbox_search" FontSize="16" KeyUp="tbSearch_KeyUp" BorderThickness="2,2,2,2" Background="#FFF0FDF7"/>
+
+        <Button x:Name="btnSearch" Content="Clear Search" HorizontalAlignment="Left" Height="30" Margin="395,85,0,0" VerticalAlignment="Top" Width="87" Click="btnSearch_Contact" Background="#FFE877AA" BorderThickness="5,5,5,5" BorderBrush="#FFA73569"/>
+        <Button x:Name="btnAdd" Content="Add Contact" HorizontalAlignment="Left" Height="34" Margin="538,303,0,0" VerticalAlignment="Top" Width="190" Click="btnAdd_Contact" IsEnabled="True" Background="#FF88DEC0" BorderThickness="5,5,5,5" BorderBrush="#FF2A8062"/>
+        <Button x:Name="btnClear" Content="Clear All Fields" HorizontalAlignment="Left" Height="34" Margin="172,340,0,0" VerticalAlignment="Top" Width="105" Click="btnClear_Contact" Background="#FFE877AA" BorderThickness="5,5,5,5" BorderBrush="#FFA73569"/>
+        <Button x:Name="btnUpdate" Content="Update Contact" HorizontalAlignment="Left" Height="33" Margin="538,357,0,0" VerticalAlignment="Top" Width="190" Click="btnUpdate_Contact" IsEnabled="True" Background="#FF95ECDE" BorderThickness="5,5,5,5" BorderBrush="#FF2A8062"/>
+
+        <ListBox x:Name="lbView" HorizontalAlignment="Left" Height="238" Margin="508,39,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="lbView_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" BorderThickness="3,3,3,3" BorderBrush="#FF7A71B5" FontFamily="Arial" FontSize="16" Foreground="#FF3E357B" Background="#FFEEE7F9"/>
     </Grid>
 </Window>
 
