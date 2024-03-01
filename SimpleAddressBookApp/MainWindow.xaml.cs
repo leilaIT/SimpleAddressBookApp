@@ -236,6 +236,7 @@ namespace SimpleAddressBookApp
         private void lbView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             clearSearchBar();
+            btnAdd.IsEnabled = false;
             btnUpdate.IsEnabled = true;
             currIndex = lbView.SelectedIndex;
             if (currIndex >= 0 && currIndex < adBookInfo.Count)
